@@ -11,12 +11,18 @@
 const { response } = require('express')
 const { request } = require('express')
 const express = require('express')
+const randomizer = require('./randomizer')
 
 const app = new express()
 app.use(express.json())
 
 app.post('/user', (request, response)=> {
-    console.log(request.body.userNumber)
+    let randomNumber = randomizer();
+    if(+request.body.userNumber === randomNumber){
+        console.log(`User number: ${request.body.userNumber}, random number: ${randomNumber} YOU WON`)
+    }else{
+        console.log(`User number: ${request.body.userNumber}, random number: ${randomNumber} YOU LOST LOSER`)
+    }
 })
 
 app.use(express.static('static')).listen(5000, () => {
